@@ -1,7 +1,6 @@
 export class ProductModel {
   getProducts(sendProductsToRender) {
     fetch('./data/goods.json')
-      // return fetch('https://cors-anywhere.herokuapp.com/https://gentle-coast-49966.herokuapp.com/get-goods')
       .then(products => products.json())
       .then(products => {
         if (localStorage.getItem('products')) {
