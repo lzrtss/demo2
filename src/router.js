@@ -1,10 +1,10 @@
-import { Observer } from '../components/observer/observer.js';
-import { ProductController } from '../components/product/productController.js';
-import { CategoryController } from '../components/category/categoryController.js';
-import { SearchController } from '../components/search/searchController.js';
-import { FilterController } from '../components/filter/filterController.js';
-import { SortController } from '../components/sort/sortController.js';
-import { CartController } from '../components/cart/cartController.js';
+import { Observer } from './components/observer/observer.js';
+import { ProductController } from './components/product/productController.js';
+import { CategoryController } from './components/category/categoryController.js';
+import { SearchController } from './components/search/searchController.js';
+import { FilterController } from './components/filter/filterController.js';
+import { SortController } from './components/sort/sortController.js';
+import { CartController } from './components/cart/cartController.js';
 
 export class Router {
   constructor() {
