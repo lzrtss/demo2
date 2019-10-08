@@ -12,7 +12,6 @@ export class ProductModel {
           });
           localStorage.setItem('products', JSON.stringify(products));
           localStorage.setItem('notSortedProducts', JSON.stringify(products));
-          localStorage.setItem('cartProducts', JSON.stringify([]));
         }
         return products;
       })
