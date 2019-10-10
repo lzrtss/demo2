@@ -41,3 +41,25 @@ export default class Templater {
     node.innerHTML += htmlData;
   }
 }
+
+
+
+
+
+
+
+
+
+
+// const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+// let fragment = document.createElement('div');
+// cartProducts.forEach(prod => {
+//   let elem = document.createElement('div');
+//   this.templater.load(prod, elem);
+//   fragment.append(elem);
+// });
+
+// console.log(this.cartDiv);
+// console.log(fragment);
+// console.log(cartProducts);
+// this.cartDiv.append(fragment.innerHTML);

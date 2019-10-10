@@ -17,4 +17,8 @@ export class Observer {
       });
     }
   }
+
+  unsubscribe(eventName, fn) {
+    this.events[eventName] = this.events[eventName].filter(eventFn => fn !== eventFn);
+  }
 }

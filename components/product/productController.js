@@ -11,11 +11,11 @@ export class ProductController {
   }
 
   handleEvents() {
-    this.view.handleEvents(this.getProducts.bind(this));
+    this.view.handleEvents(this.updateProducts.bind(this));
   }
 
-  getProducts() {
-    this.model.getProducts(this.sendProductsToRender.bind(this));
+  updateProducts() {
+    this.model.getProducts().then(products => this.view.render(products));
   }
 
   sendProductsToRender(products) {
