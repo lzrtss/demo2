@@ -5,8 +5,18 @@ export class CartController {
   constructor() {
     this.model = new CartModel();
     this.view = new CartView();
-    // this.observer.subscribe('RenderCart', this.loadCart.bind(this)); // remove!
+    this.initCart();
+  }
+
+  initCart() {
+    this.model.initCartState();
+    this.renderCartBtnCounter();
     this.handleEvents();
+  }
+
+  renderCartBtnCounter() {
+    const currentCounter = this.model.getPurchaseCounter();
+    this.view.renderCartBtnCounter(currentCounter);
   }
 
   handleEvents() {
@@ -18,10 +28,40 @@ export class CartController {
 
   loadCart() {
     const addedProducts = this.model.getAddedProducts();
-    this.view.loadCart(addedProducts);
+    this.view.loadCart(addedProducts, this.removeProdFromCart.bind(this));
   }
 
   addToCart(e) {
-    this.model.addToCart(e);
+    if (this.view.checkTargetBtn(e)) {
+      const prodID = Number(this.view.getProdID(e), 'data-id');
+      const productData = this.model.getProductData(prodID);
+      const cartProductData = this.model.getCartData(prodID);
+
+      console.log('prodData', productData); // remove me
+      console.log('cartProdData', cartProductData); // remove me
+
+      if (!!cartProductData === true) {
+        this.model.incProductCounterInCart(cartProductData);
+        if (cartProductData.ordered >= cartProductData.quantity) {
+          this.view.disableBuyBtn(prodID);
+        }
+      } else {
+        this.model.incProductCounterInCart(productData);
+        this.model.addProdToCart(productData);
+        if (productData.ordered >= productData.quantity) {
+          this.view.disableBuyBtn(prodID);
+        }
+      }
+      this.model.updateCartLS();
+      this.renderCartBtnCounter();
+    }
   }
+
+  removeProdFromCart(e) {
+    const prodID = Number(this.view.getProdID(e, 'data-remove-id'));
+
+    this.model.removeProdFromCart(prodID);
+    this.loadCart();
+  }
+
 }

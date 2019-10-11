@@ -13,7 +13,11 @@ export class CartView {
     this.allProducts.addEventListener('click', (e) => addToCart(e));
   }
 
-  loadCart(cartProducts) {
+  renderCartBtnCounter(totalAmount) {
+    document.querySelector('#cart-number').innerHTML = totalAmount;
+  }
+
+  loadCart(cartProducts, callback) {
     this.templater.load({}, this.cartDiv);
 
     let data = cartProducts.map(product => `
@@ -37,15 +41,33 @@ export class CartView {
         </div>
       </td>
       <td>
-        <a href="#" class="btn btn-danger btn-sm">
-          <i class="fa fa-times"></i>
-        </a>
+        <button class="btn btn-danger btn-sm cartRemoveBtn" data-remove-id="${product.id}">
+          <i class="fa fa-times" data-remove-id="${product.id}"></i>
+        </button>
       </td>
     </tr>
     `).join(' ');
 
     let container = this.cartDiv.querySelector('.tableContainer');
     container.innerHTML = data;
+
+    const btns = document.querySelectorAll('.cartRemoveBtn');
+
+    [...btns].forEach(btn => {
+      console.log(btn);
+      btn.addEventListener('click', (e) => callback(e));
+    });
   }
 
+  getProdID(e, attrName) {
+    return e.target.getAttribute(attrName);
+  }
+
+  checkTargetBtn(e) {
+    return e.target.classList.contains('add-cart-btn');
+  }
+
+  disableBuyBtn(prodID) {
+    document.querySelector(`[data-id='${prodID}']`).setAttribute('disabled', 'true');
+  }
 }
