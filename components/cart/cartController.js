@@ -45,28 +45,6 @@ export class CartController {
     this.model.updateCartLS();
     this.model.initCartState();
     this.renderCartBtnCounter();
-
-
-    // if (this.view.checkTargetBtn(e)) {
-    //   const prodID = Number(this.view.getProdID(e, 'data-id'));
-    //   const productData = this.model.getProductData(prodID);
-    //   const cartProductData = this.model.getCartData(prodID);
-
-    //   if (!!cartProductData === true) {
-    //     this.model.incProductCounterInCart(cartProductData);
-    //     if (cartProductData.ordered >= cartProductData.quantity) {
-    //       this.view.disableBuyBtn(prodID);
-    //     }
-    //   } else {
-    //     this.model.incProductCounterInCart(productData);
-    //     this.model.addProdToCart(productData);
-    //     if (productData.ordered >= productData.quantity) {
-    //       this.view.disableBuyBtn(prodID);
-    //     }
-    //   }
-    //   this.model.updateCartLS();
-    //   this.renderCartBtnCounter();
-    // }
   }
 
   removeProdFromCart(e) {
