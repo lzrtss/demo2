@@ -1,65 +1,90 @@
 export class CartModel {
-  constructor() {
-  }
-
   initCartState() {
-    this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
-    console.log(this.cartPoducts);
-    if (!!this.cartProducts === false || this.cartProducts === 'undefined' || this.cartProducts === 'null') {
-      this.cartProducts = [];
-      localStorage.setItem('cartProducts', JSON.stringify(this.cartProducts));
-    }
-    // LABEL FOR CART
-    const allProducts = JSON.parse(localStorage.getItem('products'));
-    let totalAmount = 0;
-    allProducts.forEach(prod => {
-      totalAmount += prod.ordered;
-    });
-    this.totalAmount = totalAmount;
+    this.allProducts = JSON.parse(localStorage.getItem('products'));
+    this.cartProducts = this.allProducts.filter(prod => prod.ordered === true);
+
+    // if (!!this.cartProducts === false) {
+    //   this.cartProducts = [];
+    // }
+
+    // this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+
+    // if (!!this.cartProducts === false || this.cartProducts === 'undefined' || this.cartProducts === 'null') {
+    //   this.cartProducts = [];
+    //   localStorage.setItem('cartProducts', JSON.stringify(this.cartProducts));
+    // }
+    // // Label for cart
+    // const allProducts = JSON.parse(localStorage.getItem('products'));
+    // let totalAmount = 0;
+    // allProducts.forEach(prod => {
+    //   totalAmount += prod.ordered;
+    // });
+    // this.totalAmount = totalAmount;
   }
 
   getPurchaseCounter() {
-    const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
     let totalAmount = 0;
-    cartProducts.forEach(prod => {
-      totalAmount += prod.ordered;
+    this.cartProducts.forEach(prod => {
+      totalAmount += prod.orderedQty;
     });
     return totalAmount;
+
+
+    // const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+    // let totalAmount = 0;
+    // cartProducts.forEach(prod => {
+    //   totalAmount += prod.ordered;
+    // });
+    // return totalAmount;
   }
 
   getAddedProducts() {
-    return JSON.parse(localStorage.getItem('cartProducts'));
+    return this.cartProducts;
+
+
+    // return JSON.parse(localStorage.getItem('cartProducts'));
   }
 
   getProductData(prodID) {
-    const allProducts = JSON.parse(localStorage.getItem('products'));
-    return allProducts.find(prod => prod.id === prodID);
+    return this.allProducts.find(prod => prod.id === prodID);
+
+    // const allProducts = JSON.parse(localStorage.getItem('products'));
+    // return allProducts.find(prod => prod.id === prodID);
   }
 
-  getCartData(prodID) {
-    if (arguments.length === 0) {
-      return this.cartProducts;
-    }
-    return this.cartProducts.find(prod => prod.id === prodID);
-  }
+  // getCartData(prodID) {
+  //   if (arguments.length === 0) {
+  //     return this.cartProducts;
+  //   }
+  //   return this.cartProducts.find(prod => prod.id === prodID);
+  // }
 
   incProductCounterInCart(product) {
-    product.ordered += 1;
+    product.orderedQty += 1;
+    // localStorage.setItem('products', JSON.stringify(this.allProducts));
+
+    // product.ordered += 1;
   }
 
   addProdToCart(product) {
-    this.cartProducts.push(product);
+    product.ordered = true;
+
+    // this.cartProducts.push(product);
   }
 
   updateCartLS() {
-    localStorage.setItem('cartProducts', JSON.stringify(this.cartProducts));
+    localStorage.setItem('products', JSON.stringify(this.allProducts));
   }
 
   removeProdFromCart(prodID) {
     const prod = this.cartProducts.find(prod => prod.id === prodID);
-    const prodInd = this.cartProducts.indexOf(prod);
-    this.cartProducts.splice(prodInd, 1);
-    localStorage.setItem('cartProducts', JSON.stringify(this.cartProducts));
+    prod.ordered = false;
+    prod.orderedQty = 0;
+
+    // const prod = this.cartProducts.find(prod => prod.id === prodID);
+    // const prodInd = this.cartProducts.indexOf(prod);
+    // this.cartProducts.splice(prodInd, 1);
+    // localStorage.setItem('cartProducts', JSON.stringify(this.cartProducts));
   }
 
   // addToCart(targetID) {

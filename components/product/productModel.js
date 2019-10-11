@@ -8,11 +8,12 @@ export class ProductModel {
         .then(products => {
           products.forEach(prod => {
             prod.statusFilter = [];
-            prod.ordered = 0;
+            prod.ordered = false;
+            prod.orderedQty = 0;
           });
           localStorage.setItem('products', JSON.stringify(products));
           localStorage.setItem('notSortedProducts', JSON.stringify(products));
-          localStorage.setItem('cartProducts', JSON.stringify([]));
+          // localStorage.setItem('cartProducts', JSON.stringify([]));
 
           return products.filter(prodObj => prodObj.statusFilter.length === 0);
         });

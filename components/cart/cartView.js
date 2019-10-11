@@ -36,7 +36,7 @@ export class CartView {
       </select> -->
         <div class="quantity">
           <input type="button" class="px-1" value="-" class="minus">
-          <input type="number" class="text-center" step="1" max="99" min="1" value="${product.ordered}" title="Qty" class="qty" size="4" disabled>
+          <input type="number" class="text-center" step="1" max="99" min="1" value="${product.orderedQty}" title="Qty" class="qty" size="4" disabled>
           <input type="button" class="px-1" value="+" class="plus">
         </div>
       </td>
@@ -54,7 +54,6 @@ export class CartView {
     const btns = document.querySelectorAll('.cartRemoveBtn');
 
     [...btns].forEach(btn => {
-      console.log(btn);
       btn.addEventListener('click', (e) => callback(e));
     });
   }
