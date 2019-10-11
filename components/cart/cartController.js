@@ -33,12 +33,9 @@ export class CartController {
 
   addToCart(e) {
     if (this.view.checkTargetBtn(e)) {
-      const prodID = Number(this.view.getProdID(e), 'data-id');
+      const prodID = Number(this.view.getProdID(e, 'data-id'));
       const productData = this.model.getProductData(prodID);
       const cartProductData = this.model.getCartData(prodID);
-
-      console.log('prodData', productData); // remove me
-      console.log('cartProdData', cartProductData); // remove me
 
       if (!!cartProductData === true) {
         this.model.incProductCounterInCart(cartProductData);
